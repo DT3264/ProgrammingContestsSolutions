@@ -97,7 +97,6 @@ int main(){
     int mid;
     while(left<=right){
         mid = (left+right)/2;
-        ///printf("%d?\n", mid);
         if(isPosible(mid)){
             if(minMoney>mid){
                 minMoney=mid;
