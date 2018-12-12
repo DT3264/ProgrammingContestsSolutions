@@ -6,16 +6,22 @@ int arr[500][500];
 bool used[500][500];
 struct pos{
     int x, y;
-} pQueue[1000000];
+} pQueue[260000];
 pos actualPos;
 int lIndex=0, rIndex=0;
 
 void push(pos p){
-    pQueue[rIndex++]=p;
+    int actualIndex = rIndex;
+    rIndex++; 
+    if(rIndex==260000) rIndex=0;
+    pQueue[actualIndex]=p;
 }
 
 pos pop(){
-    return pQueue[lIndex++];
+    int lastIndex = lIndex;
+    lIndex++;
+    if(lIndex==260000) lIndex=0;
+    return pQueue[lastIndex];
 }
 
 bool QEmpty(){
@@ -90,6 +96,7 @@ int main(){
     int mid;
     while(left<=right){
         mid = (left+right)/2;
+        ///printf("%d?\n", mid);
         if(isPosible(mid)){
             if(minMoney>mid){
                 minMoney=mid;
