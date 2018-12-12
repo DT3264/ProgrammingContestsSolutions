@@ -71,12 +71,13 @@ bool isPosible(int x){
     memset(used, 0, sizeof(used));
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            if(!used[i][j])
-            actualPersons=0;
-            resetQueue();
-            push({i, j});
-            bfs();
-            if(actualPersons>actualMaxPersons) actualMaxPersons=actualPersons;
+            if(!used[i][j]){
+				actualPersons=0;
+				resetQueue();
+				push({i, j});
+				bfs();
+				if(actualPersons>actualMaxPersons) actualMaxPersons=actualPersons;
+			}
         }
     }
     return actualMaxPersons>=atLeastNPersons;
