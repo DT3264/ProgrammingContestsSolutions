@@ -1,5 +1,0 @@
-1) Get to the video on vimeo
-2) Get to the source (ctrl+U)
-3) Find "config_url" and copy the link, replace "\" with empty
-4) Paste the url in the browser and there should be the links to the diferent resolutions of the videos with url
-5) Open a link and right click to download it
