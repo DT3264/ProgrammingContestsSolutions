@@ -6,7 +6,7 @@ bool isVowel(char c){
 }
 
 int main(){
-    int cont=0, strLen, i, j;
+    int strLen, i, j;
     char str[102];
     int ans[3];
     memset(ans, 0, sizeof(ans));
