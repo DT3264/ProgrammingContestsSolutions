@@ -2,7 +2,6 @@
 #include<set>
 #include<queue>
 using namespace std;
-
 struct node{
     node *prev;
     node *next;
@@ -19,8 +18,8 @@ struct node{
 ///Send this to the set
 ///so it will compare the elements as it's shown
 struct comparator {
-    bool operator() (const node* lhs, const node* rhs) const{
-        return lhs->val<rhs->val;
+    bool operator() (const node* left, const node* right) const{
+        return left->val<right->val;
     }
 };
 
