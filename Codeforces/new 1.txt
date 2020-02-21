@@ -1,0 +1,5 @@
+1:
+Cuadro comparativo aracterísitcas y requisitos de los sistemas operativos vigentes
+
+3:
+Investigar sobre los métodos y técnicas para la medición del rendimiento y administración del sistema operativo
