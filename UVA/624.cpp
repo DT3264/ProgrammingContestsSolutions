@@ -1,38 +1,49 @@
-#include<stdio.h>
-#include<string.h>
-int n, t, arr[25], actualArr[25];
-int res[25], resSize;
-int bestAproach=1e9;
-
-void bestMix(int actualN, int pos, int used){
-    if(actualN>n || pos>t){
-        return;
-    }
-    if(n-actualN<bestAproach){
-        bestAproach=n-actualN;
-        memcpy(res, actualArr, sizeof(actualArr));
-        resSize=used;
-    }
-    actualArr[used]=arr[pos];
-    bestMix(actualN+arr[pos], pos+1, used+1);
-    bestMix(actualN, pos+1, used);
-
-}
-
+#include<bits/stdc++.h>
+using namespace std;
+int maxN=100001;
+int dp[100001];
+int parent[100001];
 int main(){
-    int i;
-    while(scanf("%d", &n)!=EOF){
-        scanf("%d", &t);
-        for(int i=0; i<t; i++){
-            scanf("%d", &arr[i]);
+    int maxTime, songCount;
+    while(cin >> maxTime){
+        cin >> songCount;
+        vector<int> songs(songCount);
+        memset(dp, -1, sizeof(dp));
+        memset(parent, -1, sizeof(parent));
+        for(int &x : songs){
+            cin >> x;
         }
-        bestAproach=1e9;
-        memset(actualArr, 0, sizeof(actualArr));
-        bestMix(0, 0, 0);
-        int sum=0;
-        for(i=0; i<resSize; i++){
-            sum+=res[i];
-            printf("%d ", res[i]);
+        for(int songTime : songs){
+            //printf("X: %d\n", x);
+            for(int i=maxTime; i>0; i--){
+				//Si con mi canción y lo que llevo 
+				//puedo llegar al inicio o más adelante y no he pasado or ahí
+                if(i-songTime>=0 && dp[i]==-1){
+                    if(i==songTime){///Si mi posición actual es igual a la duración de la canción
+                        dp[i]=songTime;///Puedo llegar a esa pos con esa canción
+                        parent[i]=songTime;///Y esa canción es su propio padre
+                    }
+                    if(dp[i-songTime]!=-1){//Si puedo llegar hasta una posición donde termina una canción
+                        dp[i]=songTime;///Puedo llegar a esa pos con esa canción
+                        parent[i]=i-songTime;//Y vengo del minuti i-duracion
+                    }
+                }
+            }
+        }
+        vector<int> ans;
+        int sum=0, pos=-1;
+        for(int i=maxTime; i>0 && pos==-1; i--)
+            if(dp[i]!=-1){{///Busco de mi respuesta para atrás cual es la última posición válida
+                pos=i;
+            }
+        }
+        while(pos>0){
+            ans.push_back(dp[pos]);
+            pos=(parent[pos]==pos ? 0 : parent[pos]);
+        }
+        for(int i=ans.size()-1; i>=0; i--){
+            sum+=ans[i];
+            printf("%d ", ans[i]);
         }
         printf("sum:%d\n", sum);
     }
