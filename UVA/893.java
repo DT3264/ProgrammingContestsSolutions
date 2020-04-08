@@ -14,41 +14,18 @@ import java.util.StringTokenizer;
 
 class Main {
 
-    static String ReadLn(int maxLg) // utility function to read from stdin
-    {
-        byte lin[] = new byte[maxLg];
-        int lg = 0, car = -1;
-        String line = "";
-        try {
-            while (lg < maxLg) {
-                car = System.in.read();
-                if ((car < 0) || (car == '\n')) {
-                    break;
-                }
-                lin[lg++] += car;
-            }
-        } catch (IOException e) {
-            return (null);
-        }
-
-        if ((car < 0) && (lg == 0)) {
-            return (null);  // eof
-        }
-        return (new String(lin, 0, lg));
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         //BufferedReader bf = new BufferedReader(new FileReader(new File("in.txt")));
         //PrintWriter out = new PrintWriter("out.txt");
-        String input;
-        StringTokenizer idata;
-        while ((input = Main.ReadLn(255)) != null) {
-
-            idata = new StringTokenizer(input);
-            int dias = Integer.parseInt(idata.nextToken());
-            int d = Integer.parseInt(idata.nextToken());
-            int m = Integer.parseInt(idata.nextToken());
-            int y = Integer.parseInt(idata.nextToken());
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        while (true) {
+            str = bf.readLine();
+            Scanner sc = new Scanner(str);
+            int dias = sc.nextInt();
+            int d = sc.nextInt();
+            int m = sc.nextInt();
+            int y = sc.nextInt();
             if (dias == 0 && d == 0 && m == 0 && y == 0) {
                 return;
             }
