@@ -15,32 +15,27 @@
 #define debug if(printDebug)
 using namespace std;
 bool printDebug=false;
-struct Botella{
+struct Bottle{
 	int vol;
 	int cal;
 };
-vector<Botella> botellas;
-int estomago;
+vector<Bottle> bottles;
+int stomackSize;
 vector<vi> dp;
-int drink(int pos, int vol){
+int drink(int pos, int remainVol){
 	//Se acabaron las botellas
-    if(pos==botellas.size()) return 0;
+    if(pos==bottles.size()) return 0;
     //Ya pasamos por aquí
-    if(dp[pos][vol]!=-1) return dp[pos][vol];
-    //Se pasa de lo que se puede tomar
-    if(botellas[pos].vol>vol){
-    	dp[pos][vol]=drink(pos+1, vol);
-    	return dp[pos][vol];
+    if(dp[pos][remainVol]!=-1) return dp[pos][remainVol];
+    //Valores iniciales, max->0, min->1e9
+    int take=0, notTake=0;
+    //Se puede tomar
+    if(bottles[pos].vol<=remainVol){
+    	take=bottles[pos].cal+drink(pos+1, remainVol-bottles[pos].vol);
     }
-    //Si se puede
-    else{
-    	//Lo tomo
-	    int take=botellas[pos].cal+drink(pos+1, vol-botellas[pos].vol);
-	    //No lo tomo
-        int notTake=drink(pos+1, vol);
-        dp[pos][vol]=max(take, notTake); 
-	    return dp[pos][vol];
-    }
+    //No se puede tomar
+    notTake=dp[pos][remainVol]=drink(pos+1, remainVol);
+    return dp[pos][remainVol]=max(take, notTake);
 }
 int main(){
     //printDebug=true;
@@ -48,18 +43,18 @@ int main(){
     freopen("out.txt", "w", stdout);//*/
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);//*/
-    int cantBotellas;
-    int cantAmigos;
-    while(cin >> cantBotellas){
-        botellas.resize(cantBotellas);
-        for(auto &x : botellas) cin >> x.cal >> x.vol;
-        cin >> cantAmigos;
+    int cantBottles;
+    int cantFriends;
+    while(cin >> cantBottles){
+        bottles.resize(cantBottles);
+        for(auto &x : bottles) cin >> x.cal >> x.vol;
+        cin >> cantFriends;
         int ans=0;
-        for(int i=0; i<cantAmigos; i++){
-            cin >> estomago;
+        for(int i=0; i<cantFriends; i++){
+            cin >> stomackSize;
             //Tamaño dinámico
-        	dp.assign(cantBotellas, vi(estomago+1, -1));
-            ans+=drink(0, estomago);
+        	dp.assign(cantBottles, vi(stomackSize+1, -1));
+            ans+=drink(0, stomackSize);
         }
         cout << ans << "\n";
     }
