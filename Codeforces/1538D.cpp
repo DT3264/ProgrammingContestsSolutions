@@ -1,4 +1,3 @@
-
 // Problem : D. Another Problem About Dividing Numbers
 // Contest : Codeforces - Codeforces Round #725 (Div. 3)
 // URL : https://codeforces.com/contest/1538/problem/D
@@ -18,7 +17,7 @@ using v=vector<T>;
 v<int> primes;
 void criba(){
 	int N=1e9;
-	int sN=sqrt(N)*2;
+	int sN=sqrt(N);
 	v<bool> isPrime(sN+1, true);
 	for(int i=2; i<=sN; i+=(i==2 ? 1 : 2)){
 		if(isPrime[i]){
@@ -50,8 +49,9 @@ int main(){
     while(cases--){
     	int a, b, k;
     	cin >> a >> b >> k;
+    	//En un solo movimiento
     	if(k==1){
-    		//a & b son distintos
+    		//Si a & b son distintos
     		//Y uno divide al otro
     		if(a!=b && (a%b==0 || b%a==0)){
     			cout << "YES\n";
@@ -62,7 +62,9 @@ int main(){
     			continue;
     		}
     	}
+    	//De otra manera vemos los factores de a + los factores de b
     	int totalFactors=countFactors(a) + countFactors(b);
+    	//Si la suma de los factores es >=k, se pueden hacer iguales en K movimientos
     	cout << (totalFactors>=k ? "YES" : "NO") << "\n";
     }
     return 0;
